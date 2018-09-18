@@ -83,11 +83,6 @@ COPY config/airflow.cfg ${AIRFLOW_HOME}/airflow.cfg
 
 RUN adduser airflow docker
 
-# unfortunately this is required to update the container docker gid to match the
-# host's gid, we remove this permission from entrypoint.sh script
-RUN echo "airflow ALL=NOPASSWD: ALL" >> /etc/sudoers
-WORKDIR ${AIRFLOW_HOME}/.docker
-
 RUN chown -R airflow: ${AIRFLOW_HOME}
 
 EXPOSE 8080 5555 8793
